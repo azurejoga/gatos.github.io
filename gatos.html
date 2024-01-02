@@ -136,14 +136,19 @@ fetch('https://api.github.com/repos/azurejoga/gatos.github.io/contents/long.json
   const source = racaSelecionada.source;
 
   infoRaca.innerHTML += `<h2>${info.name || info.breed}</h2>`;
-  
+
   // Adicione o código abaixo para exibir a descrição em português
   const racaNome = info.name || info.breed;
   const descricaoPt = longData[racaNome] ? longData[racaNome]["pt"] : "";
-  infoRaca.innerHTML += `<p><strong>Descrição:</strong> ${descricaoPt}</p>`;
+  if (descricaoPt) {
+    infoRaca.innerHTML += `<p><strong>Descrição:</strong> ${descricaoPt}</p>`;
+  }
+
+  // Evitar duplicação de descrição
+  delete info.description;
 
   for (const [key, value] of Object.entries(info)) {
-        if (typeof value === 'object') {
+    if (typeof value === 'object') {
           if (key === 'weight') {
             infoRaca.innerHTML += `<p><strong>${traduzirChave(key)}:</strong> ${value.metric} kg (${value.imperial} lbs)</p>`;
           } else if (key === 'image') {
