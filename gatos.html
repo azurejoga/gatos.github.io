@@ -81,7 +81,7 @@ E não são de nossa autoria e nem nossa responsabilidade
 const longData = {}; // Objeto para armazenar dados do arquivo long.json
 
 // Carrega o arquivo JSON
-fetch('https://github.com/azurejoga/gatos.github.io/raw/main/long.json')
+fetch('https://raw.githubusercontent.com/azurejoga/gatos.github.io/main/long.json')
   .then(response => response.json())
   .then(data => {
     Object.assign(longData, data);
