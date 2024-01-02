@@ -139,7 +139,7 @@ fetch('https://api.github.com/repos/azurejoga/gatos.github.io/contents/long.json
 
   // Adicione o código abaixo para exibir a descrição em português
   const racaNome = info.name || info.breed;
-  const descricaoPt = longData[racaNome] ? parseHTML(longData[racaNome]["pt"]) : "";
+  const descricaoPt = longData[racaNome] ? decodeURIComponent(escape(longData[racaNome]["pt"])) : "";
   if (descricaoPt) {
     infoRaca.innerHTML += `<p><strong>Descrição:</strong> ${descricaoPt}</p>`;
   }
