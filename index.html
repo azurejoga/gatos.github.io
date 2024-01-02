@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tudo sobre gatos: História, Curiosidades, Personalidade, Características, Doações e muito mais!</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav select {
+            padding: 8px;
+            font-size: 16px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+        }
+
+        nav select option {
+            background-color: #000;
+            color: #fff;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .content {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Tudo sobre gatos</h1>
+        <nav>
+            <select id="dropdown" onchange="loadPage()">
+                <option value="index.html">Página Inicial</option>
+                <option value="gatos.html">Informações técnicas sobre as raças de gatos</option>
+            </select>
+        </nav>
+    </header>
+  <figure>
+    <img src="Maine-Coon.jpg" alt="A imagem de um Maine Coon, ele é um gato de pelagem amarelada meio a laranjada. Ele possui olhos azuis. a imagem só aparece do torso para cima">
+    <figcaption>Um majestoso Maine Coon</figcaption>
+  </figure>
+
+  <figure>
+    <img src="sphynx.jpg" alt="Foto de um adorável Sphynx, Ele tem duas manchas em sua pele, uma na testa e outra nas costas. Ele é um gato sem pelos e está sentado em uma superfície preta,, não tão visível. Seus olhos são verdes. ">
+    <figcaption>Um charmoso Sphynx</figcaption>
+  </figure>
+    <main id="content">
+        <section class="content">
+            <h2>Sobre o site</h2>
+            <p>Este site é dedicado a trazer informações sobre curiosidades, história, descrição das raças e tudo sobre os gatos. Além disso, abordamos maneiras de ajudar os gatos pelo mundo através de doações, ONGs e também compartilhamos vídeos fofos, fotos e muito mais!</p>
+        </section>
+    <h1>Bem-vindos ao Nosso Espaço Online Onde poderás miar  livremente 😺</h1>
+    <p>Nosso site é um hub informativo e engajado dedicado a explorar um vasto leque de informações sobre gatos. Aqui, oferecemos uma jornada desde curiosidades cativantes até detalhes históricos e descrições abrangentes de diversas raças felinas. Nosso compromisso não se limita apenas à disseminação de conhecimento, mas também busca promover ações para auxiliar gatos ao redor do mundo.</p>
+
+    <h2>Explorando o Universo dos Gatos</h2>
+    <p>Seja você um apaixonado por gatos ou alguém em busca de informações detalhadas, nosso site oferece um mergulho profundo no mundo fascinante desses animais encantadores. Explore tópicos que vão desde a história e características das diferentes raças até curiosidades sobre seu comportamento único.</p>
+
+    <h2>Engajamento Social e Doações</h2>
+    <p>Acreditamos no poder das ações coletivas para melhorar a vida dos gatos em situações desfavoráveis. Por isso, promovemos iniciativas e destacamos organizações comprometidas com o bem-estar felino. Se você deseja contribuir para causas que apoiam gatos, considere fazer uma doação para as seguintes ONGs:</p>
+    
+    <ul>
+        <li><a href="https://www.mundogato.org.br/" target="_blank">ONG Mundo gato, adote ou ajude a causa! </a></li>
+        <li><a href="http://www.gatopoles.com.br/apadrinhar.php" target="_blank">ONG, gatópoles, Seja um voluntário ou ajude doando!</a></li>
+<li> <a href="https://abrigoanjogabriel.com.br/" target="_blank">Abrigo anjo gabriel, faça uma doação ou ajude! </a> </li>
+<li> <a href="http://www.adoteumgatinho.com.br/" target"_blank">Adote um gatinho, ajude, adote ou dôe. </a> </li>
+    </ul>
+
+    <h2>Conteúdo Cativante</h2>
+    <p>Nosso site oferece não apenas informações detalhadas, mas também um espaço para desfrutar de momentos especiais com vídeos adoráveis, fotos encantadoras e histórias inspiradoras sobre gatos. É um refúgio para aqueles que buscam um contato íntimo com a beleza e personalidade única desses animais.</p>
+
+    <p>Esperamos que este espaço virtual seja não apenas uma fonte de conhecimento, mas também uma ferramenta para promover a conscientização e o auxílio aos gatos que tanto precisam. Junte-se a nós nesta jornada de aprendizado, apoio e admiração pelos felinos!</p>
+
+    </main>
+    <footer>
+        <p>&copy; 2023 Tudo sobre gatos</p>
+    </footer>
+
+    <script>
+                function loadPage() {
+            var dropdown = document.getElementById("dropdown");
+            var selectedPage = dropdown.options[dropdown.selectedIndex].value;
+            if (selectedPage !== "#") {
+                if (selectedPage === "pagina-inicial.html") {
+                    window.location.href = selectedPage;
+                } else {
+                    document.getElementById("content").innerHTML = '<object type="text/html" data="' + selectedPage + '" style="width: 100%; height: 100%;"></object>';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
