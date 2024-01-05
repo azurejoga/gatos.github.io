@@ -1,47 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Informações de Raças de Gatos</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    select {
-      padding: 8px;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #info-raca {
-      margin-top: 20px;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 10px;
-    }
-    @media only screen and (max-width: 600px) {
-      img {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-<body>
-  <h1>Selecione uma Raça de Gato:</h1>
-  <select id="racas" onchange="mostrarInfo()">
+<h1>Selecione uma Raça de Gato:</h1>
+  <select id="racas">
     <option value="" selected disabled hidden>Selecione uma raça</option>
     <!-- As opções das raças serão preenchidas aqui via JavaScript -->
   </select>
@@ -77,7 +35,7 @@ Todos os dados são retirados da
 <br>
 E não são de nossa autoria e nem nossa responsabilidade
   
-  <script>
+  <script id="script">
 const longData = {}; // Objeto para armazenar dados do arquivo long.json
 
 // Carrega o arquivo JSON
@@ -126,6 +84,10 @@ fetch('https://api.github.com/repos/azurejoga/gatos.github.io/contents/long.json
         option.value = JSON.stringify(raca);
         selectRacas.appendChild(option);
       });
+	  
+	  document.querySelector("#racas").addEventListener("change", () => {
+		mostrarInfo();
+	  });
     }
 
     function mostrarInfo() {
@@ -258,5 +220,3 @@ function parseHTML(text) {
 
     preencherLista();
   </script>
-</body>
-</html>

@@ -106,14 +106,19 @@
     </footer>
 
     <script>
-                function loadPage() {
+                async function loadPage() {
             var dropdown = document.getElementById("dropdown");
             var selectedPage = dropdown.options[dropdown.selectedIndex].value;
             if (selectedPage !== "#") {
                 if (selectedPage === "pagina-inicial.html") {
                     window.location.href = selectedPage;
                 } else {
-                    document.getElementById("content").innerHTML = '<object type="text/html" data="' + selectedPage + '" style="width: 100%; height: 100%;"></object>';
+                    const response = await fetch(selectedPage);
+					const pageContent = await response.text();
+					document.getElementById("content").innerHTML = pageContent;
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(pageContent, "text/html");
+					eval(doc.querySelector("#script").innerText);
                 }
             }
         }
