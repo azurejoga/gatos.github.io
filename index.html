@@ -12,12 +12,14 @@
         }
 
         header {
+            background-color: #000;
+            color: #fff;
             padding: 20px;
             text-align: center;
         }
 
-            margin: 0;
         header h1 {
+            margin: 0;
         }
 
         nav select {
@@ -42,6 +44,8 @@
         }
 
         footer {
+            background-color: #000;
+            color: #fff;
             text-align: center;
             padding: 10px;
             position: fixed;
@@ -102,199 +106,19 @@
     </footer>
 
     <script>
-                function loadPage() {
+                async function loadPage() {
             var dropdown = document.getElementById("dropdown");
             var selectedPage = dropdown.options[dropdown.selectedIndex].value;
             if (selectedPage !== "#") {
                 if (selectedPage === "pagina-inicial.html") {
                     window.location.href = selectedPage;
                 } else {
-                    fetch(`${selectedPage}`)
-					.then(response => response.text())
-					.then(data => {
-						document.getElementById("content").innerHTML = data;
-						
-						const longData = {}; // Objeto para armazenar dados do arquivo long.json
-
-// Carrega o arquivo JSON
-fetch('https://api.github.com/repos/azurejoga/gatos.github.io/contents/long.json')
-  .then(response => response.json())
-  .then(data => {
-    // Decodifica o conteúdo do arquivo
-    const content = atob(data.content);
-    // Converte o conteúdo para objeto JSON
-    const jsonData = JSON.parse(content);
-    // Copia os dados para o objeto longData
-    Object.assign(longData, jsonData);
-  })
-  .catch(error => console.error('Erro ao carregar long.json:', error));
-    const urlTheCatAPI = 'https://api.thecatapi.com/v1/breeds';
-    const api_key = 'live_W3nY2zQFexBYsMOHWI94p9GcywcqpXh1ClBQ5iifx3B0iAUT8nz44EcA4kokpbDC'; // Sua chave da API
-    const selectRacas = document.getElementById('racas');
-    const infoRaca = document.getElementById('info-raca');
-
-    async function obterRacasTheCatAPI() {
-      try {
-        const response = await fetch(urlTheCatAPI, {
-          headers: {
-            'x-api-key': api_key
-          }
-        });
-        const data = await response.json();
-        return data.map(raca => ({ name: raca.name, source: 'TheCatAPI', info: raca }));
-      } catch (error) {
-        console.error('Erro ao obter raças da TheCatAPI:', error);
-        return [];
-      }
-    }
-
-    async function preencherLista() {
-      const racasTheCatAPI = await obterRacasTheCatAPI();
-      const todasRacas = [];
-
-      racasTheCatAPI.forEach(raca => {
-        todasRacas.push({ ...raca });
-      });
-
-      todasRacas.forEach((raca) => {
-        const option = document.createElement('option');
-        option.text = `${raca.name} - ${raca.source}`;
-        option.value = JSON.stringify(raca);
-        selectRacas.appendChild(option);
-      });
-    }
-
-    function mostrarInfo() {
-  const racaSelecionada = JSON.parse(selectRacas.value);
-  infoRaca.innerHTML = '';
-
-  const info = racaSelecionada.info;
-  const source = racaSelecionada.source;
-
-  infoRaca.innerHTML += `<h2>${info.name || info.breed}</h2>`;
-
-  // Adicione o código abaixo para exibir a descrição em português
-  const racaNome = info.name || info.breed;
-  const descricaoPt = longData[racaNome] ? decodeURIComponent(escape(longData[racaNome]["pt"])) : "";
-  if (descricaoPt) {
-    infoRaca.innerHTML += `<p><strong>Descrição:</strong> ${descricaoPt}</p>`;
-  }
-
-  // Evitar duplicação de descrição
-  delete info.description;
-
-  for (const [key, value] of Object.entries(info)) {
-    if (typeof value === 'object') {
-          if (key === 'weight') {
-            infoRaca.innerHTML += `<p><strong>${traduzirChave(key)}:</strong> ${value.metric} kg (${value.imperial} lbs)</p>`;
-          } else if (key === 'image') {
-            infoRaca.innerHTML += `<p><strong>${traduzirChave(key)} URL:</strong> <a href="${value.url}" target="_blank">${value.url}</a></p>`;
-            infoRaca.innerHTML += `<img src="${value.url}" alt="${info.name || info.breed}">`;
-          } else if (key === 'size') {
-            infoRaca.innerHTML += `<p><strong>Tamanho:</strong> ${value}</p>`;
-          }
-          continue; // Evita exibir objetos aninhados
-        } else if(key === "temperament") {
-			let newValue = value.split(/\s*,\s*/);
-			const trValue = [];
-			newValue.forEach(v => {
-				trValue.push(traduzirChave(v.toLowerCase()));
-			});
-			infoRaca.innerHTML += `<p><strong>${traduzirChave(key)}:</strong> ${trValue.join(", ")}</p>`;
-			continue;
-		}
-        infoRaca.innerHTML += `<p><strong>${traduzirChave(key)}:</strong> ${value}</p>`;
-      }
-    }
-
-function parseHTML(text) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(text, 'text/html');
-  return doc.body.textContent || "";
-}
-
-    function salvarInfo() {
-      const racaSelecionada = JSON.parse(selectRacas.value);
-      const info = JSON.stringify(racaSelecionada.info, null, 2);
-
-      const blob = new Blob([info], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `${racaSelecionada.info.name || racaSelecionada.info.breed}_info.txt`;
-      link.click();
-    }
-
-    function traduzirChave(chave) {
-      const traducoes = {
-  weight: 'Peso',
-  id: 'ID',
-  name: 'Nome',
-  temperament: 'Temperamento',
-  origin: 'Origem',
-  country_codes: 'Códigos de País',
-  country_code: 'Código de País',
-  description: 'Descrição',
-  life_span: 'Vida Útil',
-  indoor: 'Interior',
-  lap: 'Colo',
-  alt_names: 'Nomes Alternativos',
-  adaptability: 'Adaptabilidade',
-  affection_level: 'Nível de Afeição',
-  child_friendly: 'Amigável com Crianças',
-  dog_friendly: 'Amigável com Cães',
-  energy_level: 'Nível de Energia',
-  grooming: 'Cuidados com Pelagem',
-  health_issues: 'Problemas de Saúde',
-  intelligence: 'Inteligência',
-  shedding_level: 'Nível de Queda de Pelos',
-  social_needs: 'Necessidades Sociais',
-  stranger_friendly: 'Amigável com Estranhos',
-  vocalisation: 'Vocalização',
-  experimental: 'Experimental',
-  hairless: 'Sem Pelos',
-  natural: 'Natural',
-  rare: 'Raro',
-  rex: 'Rex',
-  suppressed_tail: 'Cauda curta / Suprimida',
-  short_legs: 'Patas Curtas',
-  wikipedia_url: 'URL da Wikipedia',
-  hypoallergenic: 'Hipoalergênico',
-  reference_image_id: 'ID da Imagem de Referência',
-  image: 'Imagem',
-  breed: 'Raça',
-  country: 'País',
-  coat: 'Pelagem',
-  pattern: 'Padrões',
-  affectionate: 'Afetuoso',
-  social: 'Sociável',
-  intelligent: 'Inteligente',
-  playful: 'Brincalhão',
-  active: 'Ativo',
-  curious: 'Curioso',
-  friendly: 'amigável',
-  cat_friendly: 'Ami		gável com gatos',
-  agile: 'ágil',
-  interactive: 'interativo',
-  lively: 'vivaz',
-  gentle: 'gentil',
-  loyal: 'leal',
-  sensible: 'Cauteloso',
-  sensitive: 'sencível',
-  energetic: 'enérgico',
-  independent: 'independente',
-  alert: 'alerta',
-  demanding: 'exigente',
-  relaxed: 'relaxado',
-  patient: 'paciente',
-  calm: 'Calmo',
-  "fun-loving": "maleável"
-};
-      return traducoes[chave] || chave;
-    }
-
-    preencherLista();
-					});
-					//document.getElementById("content").innerHTML = '<object type="text/html" data="' + selectedPage + '" style="width: 100%; height: 100%;"></object>';
+                    const response = await fetch(selectedPage);
+					const pageContent = await response.text();
+					document.getElementById("content").innerHTML = pageContent;
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(pageContent, "text/html");
+					eval(doc.querySelector("#script").innerText);
                 }
             }
         }
